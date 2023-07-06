@@ -9,11 +9,12 @@ import Col from "react-bootstrap/Col";
 import { data } from "./data";
 import { useState } from "react";
 import "./App.css";
+import { Link, Route, Routes } from "react-router-dom";
 
 function Product({ data, i }) {
   let srcData = `https://codingapple1.github.io/shop/shoes${i}.jpg`;
   return (
-    <Col key={i}>
+    <Col>
       {/* <img width={"80%"} src={process.env.PUBLIC_URL + "/logo192.png"} /> */}
       <img src={srcData} width="80%" />
       <h4>{data.title}</h4>
@@ -31,20 +32,37 @@ function App() {
         <Container>
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
+            <Link to={"/"} style={{ marginLeft: "20px" }}>
+              Home
+            </Link>
+            <Link to={"/detail"} style={{ marginLeft: "20px" }}>
+              detail
+            </Link>
+            <Link to={"/about"} style={{ marginLeft: "20px" }}>
+              about
+            </Link>
           </Nav>
         </Container>
       </Navbar>
       <div className="main-bg" style={{ backgroundImage: `url(${bg})` }}></div>
-      <Container>
-        <Row>
-          {shoes.map((data, i) => (
-            <Product data={data} i={++i} />
-          ))}
-        </Row>
-      </Container>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <Container>
+                <Row>
+                  {shoes.map((data, i) => (
+                    <Product data={data} key={i} i={++i} />
+                  ))}
+                </Row>
+              </Container>
+            </>
+          }
+        />
+        <Route path="/detail" element={<div>detail</div>} />
+        <Route path="/about" element={<div>about</div>} />
+      </Routes>
     </div>
   );
 }
