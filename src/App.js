@@ -3,6 +3,10 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import bg from "./img/bg.png";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+
 import "./App.css";
 
 function App() {
@@ -18,7 +22,32 @@ function App() {
           </Nav>
         </Container>
       </Navbar>
-      <Button variant="primary">Primary</Button>
+      <div className="main-bg" style={{ backgroundImage: `url(${bg})` }}></div>
+      <Container>
+        <Row>
+          <Col>
+            <img width={"80%"} src={process.env.PUBLIC_URL + "/logo192.png"} />
+            <h4>상품명</h4>
+            <p>상품설명</p>
+          </Col>
+          <Col>
+            <img
+              src="https://codingapple1.github.io/shop/shoes2.jpg"
+              width="80%"
+            />
+            <h4>상품명</h4>
+            <p>상품설명</p>
+          </Col>
+          <Col>
+            <img
+              src="https://codingapple1.github.io/shop/shoes3.jpg"
+              width="80%"
+            />
+            <h4>상품명</h4>
+            <p>상품설명</p>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 }
