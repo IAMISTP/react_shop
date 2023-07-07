@@ -11,19 +11,7 @@ import { useState } from "react";
 import "./App.css";
 import { Link, Outlet, Route, Routes, useNavigate } from "react-router-dom";
 import { Detail } from "./routes/Detail";
-
-function Product({ data, i }) {
-  let srcData = `https://codingapple1.github.io/shop/shoes${i}.jpg`;
-  return (
-    <Col>
-      {/* <img width={"80%"} src={process.env.PUBLIC_URL + "/logo192.png"} /> */}
-      <img src={srcData} width="80%" />
-      <h4>{data.title}</h4>
-      <h6>{data.content}</h6>
-      <p>{data.price}</p>
-    </Col>
-  );
-}
+import { Product } from "./routes/Product";
 
 function App() {
   let [shoes, setShoes] = useState(data);
@@ -64,10 +52,27 @@ function App() {
                 className="main-bg"
                 style={{ backgroundImage: `url(${bg})` }}
               ></div>
+              <button
+                onClick={() => {
+                  let copy = [...shoes];
+                  copy.sort((a, b) => {
+                    if (a.title > b.title) {
+                      return 1;
+                    }
+                    if (a.title < b.title) {
+                      return -1;
+                    }
+                    return 0;
+                  });
+                  setShoes(copy);
+                }}
+              >
+                가나다라 순변경
+              </button>
               <Container>
                 <Row>
-                  {shoes.map((data, i) => (
-                    <Product data={data} key={i} i={++i} />
+                  {shoes.map((data) => (
+                    <Product data={data} />
                   ))}
                 </Row>
               </Container>
@@ -75,7 +80,7 @@ function App() {
           }
         />
 
-        <Route path="/detail" element={<Detail />} />
+        <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
         <Route path="*" element={<div>없는 페이지 입니다.</div>}></Route>
         <Route path="/about" element={<About />}>
           <Route path="member" element={<div>멤버조회 페이지 입니다.</div>} />
