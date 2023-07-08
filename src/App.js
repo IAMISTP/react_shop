@@ -12,6 +12,7 @@ import "./App.css";
 import { Link, Outlet, Route, Routes, useNavigate } from "react-router-dom";
 import { Detail } from "./routes/Detail";
 import { Product } from "./routes/Product";
+import axios from "axios";
 
 function App() {
   let [shoes, setShoes] = useState(data);
@@ -76,6 +77,21 @@ function App() {
                   ))}
                 </Row>
               </Container>
+              <button
+                onClick={() => {
+                  axios
+                    .get("https://codingapple1.github.io/shop/data2.json")
+                    .then(({ data }) => {
+                      let copy = [...shoes, ...data];
+                      setShoes(copy);
+                    })
+                    .catch(() => {
+                      console.log("데이터 가져오기 실패");
+                    });
+                }}
+              >
+                더보기
+              </button>
             </>
           }
         />
