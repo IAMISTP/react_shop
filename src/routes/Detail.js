@@ -11,28 +11,38 @@ let Box = styled.div`
   background-color: grey;
   padding: 20px;
 `;
-
+let WarningBox = styled.div`
+  background-color: red;
+  color: white;
+  padding: 10px;
+  width: 100%;
+`;
 //기존 스타일 복사도 가능
 let NewBtn = styled.button(YellowBtn);
 export function Detail(props) {
   let { id } = useParams();
   let num = parseInt(id) - 1;
   let data = props.shoes.find((x) => x.id.toString() === num.toString());
-  let [styleDisplay, setStyleDisplay] = useState("visible");
+  let [alert, setAlert] = useState(true);
+  let [inputValue, setInputValue] = useState("");
+  let [typeCheck, setTypeCheck] = useState(true);
   useEffect(() => {
-    setTimeout(() => {
-      setStyleDisplay("hidden");
+    let timer = setTimeout(() => {
+      setAlert(false);
     }, 2000);
-  });
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+  useEffect(() => {
+    setTypeCheck(isNaN(inputValue));
+  }, [inputValue]);
   return (
     <>
       <div className="container">
-        <div
-          className="alert alert-warning "
-          style={{ visibility: styleDisplay }}
-        >
-          2초 이내 구매시 할인
-        </div>
+        {alert === true ? (
+          <div className="alert alert-warning ">2초 이내 구매시 할인</div>
+        ) : null}
         <Box>
           <YellowBtn bg="blue">버튼</YellowBtn>
           <YellowBtn bg="orange">버튼</YellowBtn>
@@ -45,6 +55,10 @@ export function Detail(props) {
             />
           </div>
           <div className="col-md-6">
+            {typeCheck === true ? (
+              <WarningBox>경고 : 숫자만 입력하세요</WarningBox>
+            ) : null}
+            <input onChange={(e) => setInputValue(e.target.value)} />
             <h4 className="pt-5">{data.title}</h4>
             <p>{data.content}</p>
             <p>{data.price}</p>
