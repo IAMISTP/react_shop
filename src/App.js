@@ -7,16 +7,28 @@ import bg from "./img/bg.png";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { data } from "./data";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { Link, Outlet, Route, Routes, useNavigate } from "react-router-dom";
 import { Detail } from "./routes/Detail";
 import { Product } from "./routes/Product";
 import axios from "axios";
+import { styled } from "styled-components";
+
+let Box = styled.div`
+  background-color: ${(props) => props.color};
+  width: 70%;
+  margin: auto;
+  padding: 10px;
+`;
 
 function App() {
   let [shoes, setShoes] = useState(data);
   let navigator = useNavigate();
+  let [dataNum, setDataNum] = useState(2);
+  let [showBtn, setShowBtn] = useState(true);
+  let [showLoading, setShowLoading] = useState(false);
+  useEffect(() => {}, [dataNum]);
   return (
     <div className="App">
       <Navbar bg="dark" data-bs-theme="dark">
@@ -72,26 +84,37 @@ function App() {
               </button>
               <Container>
                 <Row>
-                  {shoes.map((data) => (
-                    <Product data={data} />
-                  ))}
+                  {shoes.map((data, i) => {
+                    return <Product data={data} key={i} />;
+                  })}
                 </Row>
               </Container>
-              <button
-                onClick={() => {
-                  axios
-                    .get("https://codingapple1.github.io/shop/data2.json")
-                    .then(({ data }) => {
-                      let copy = [...shoes, ...data];
-                      setShoes(copy);
-                    })
-                    .catch(() => {
-                      console.log("데이터 가져오기 실패");
-                    });
-                }}
-              >
-                더보기
-              </button>
+              {showLoading === true ? (
+                <Box color="yellow">로딩중 입니다...</Box>
+              ) : null}
+              {showBtn === true ? (
+                <button
+                  onClick={() => {
+                    setDataNum(dataNum + 1);
+                    setShowLoading(true);
+                    axios
+                      .get(
+                        `https://codingapple1.github.io/shop/data${dataNum}.json`
+                      )
+                      .then(({ data }) => {
+                        setShowLoading(false);
+                        let copy = [...shoes, ...data];
+                        setShoes(copy);
+                      })
+                      .catch(() => {
+                        setShowLoading(false);
+                        setShowBtn(false);
+                      });
+                  }}
+                >
+                  더보기
+                </button>
+              ) : null}
             </>
           }
         />
