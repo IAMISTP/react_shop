@@ -12,6 +12,9 @@
   opacity: 1;
   transition: opacity 0.5s;
 }
+.nick {
+  color: white;
+}
 .main-bg {
   height: 400px;
   /* background-image: url("./img/bg.jpeg"); */

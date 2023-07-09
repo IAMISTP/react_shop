@@ -23,7 +23,7 @@ let WarningBox = styled.div`
 `;
 //기존 스타일 복사도 가능
 let NewBtn = styled.button(YellowBtn);
-export function Detail(props) {
+function Detail(props) {
   let { id } = useParams();
   let num = parseInt(id) - 1;
   let data = props.shoes.find((x) => x.id.toString() === num.toString());
@@ -161,3 +161,4 @@ function TabComponent({ tab }) {
   //   return <div>내용2</div>;
   // }
 }
+export default Detail;

@@ -1,7 +1,7 @@
 import { Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-export function Product({ data }) {
+function Product({ data }) {
   let navigator = useNavigate();
   let srcData = `https://codingapple1.github.io/shop/shoes${data.id + 1}.jpg`;
   return (
@@ -16,3 +16,4 @@ export function Product({ data }) {
     </Col>
   );
 }
+export default Product;
