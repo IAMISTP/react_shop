@@ -3,6 +3,8 @@ import { Nav } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { styled } from "styled-components";
 import { Context1 } from "../App";
+import { useDispatch } from "react-redux";
+import { addItem } from "../store/basketsSlice";
 
 let YellowBtn = styled.button`
   background-color: ${(props) => props.bg};
@@ -30,6 +32,7 @@ export function Detail(props) {
   let [typeCheck, setTypeCheck] = useState(true);
   let [tab, setTab] = useState(0);
   let [fade, setFade] = useState("");
+  let dispatch = useDispatch();
   useEffect(() => {
     let timer = setTimeout(() => {
       setAlert(false);
@@ -75,7 +78,14 @@ export function Detail(props) {
             <h4 className="pt-5">{data.title}</h4>
             <p>{data.content}</p>
             <p>{data.price}</p>
-            <button className="btn btn-danger">주문하기</button>
+            <button
+              className="btn btn-danger"
+              onClick={() => {
+                dispatch(addItem(data));
+              }}
+            >
+              주문하기
+            </button>
           </div>
         </div>
         <Nav fill variant="tabs" defaultActiveKey="link-0">

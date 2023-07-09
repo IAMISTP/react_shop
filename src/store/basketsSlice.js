@@ -15,8 +15,15 @@ let baskets = createSlice({
       const copy = state.find((element) => element.id === action.payload);
       copy.count -= 1;
     },
+    addItem(state, action) {
+      state.push({
+        id: action.payload.id,
+        name: action.payload.title,
+        count: 1,
+      });
+    },
   },
 });
 
-export let { changeCount, increase, subtract } = baskets.actions;
+export let { changeCount, increase, subtract, addItem } = baskets.actions;
 export default baskets;

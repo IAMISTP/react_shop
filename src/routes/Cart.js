@@ -23,6 +23,7 @@ function Cart() {
         </thead>
         <tbody>
           {baskets.map((data, i) => {
+            console.log(data);
             return (
               <tr key={i}>
                 <td>{++i}</td>
