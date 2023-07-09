@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 let baskets = createSlice({
   name: "basket",
@@ -16,14 +16,25 @@ let baskets = createSlice({
       copy.count -= 1;
     },
     addItem(state, action) {
-      state.push({
-        id: action.payload.id,
-        name: action.payload.title,
-        count: 1,
-      });
+      const check = state.find((element) => element.id === action.payload.id);
+      if (check === undefined) {
+        state.push({
+          id: action.payload.id,
+          name: action.payload.title,
+          count: 1,
+        });
+      } else {
+        check.count += 1;
+      }
+    },
+    delItem(state, action) {
+      console.log(current(state));
+      let result = state.filter((data) => data.id !== action.payload);
+      return result;
     },
   },
 });
 
-export let { changeCount, increase, subtract, addItem } = baskets.actions;
+export let { changeCount, increase, subtract, addItem, delItem } =
+  baskets.actions;
 export default baskets;
