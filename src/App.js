@@ -32,6 +32,14 @@ function App() {
   let [showBtn, setShowBtn] = useState(true);
   let [showLoading, setShowLoading] = useState(false);
   let [재고] = useState([10, 11, 12]);
+
+  useEffect(() => {
+    let watchedCnt = JSON.parse(localStorage.getItem("watched")).length;
+    if (watchedCnt === 0) {
+      localStorage.setItem("watched", JSON.stringify([]));
+    }
+  }, []);
+
   useEffect(() => {}, [dataNum]);
   return (
     <div className="App">

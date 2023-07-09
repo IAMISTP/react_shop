@@ -53,6 +53,13 @@ export function Detail(props) {
       setFade("");
     };
   }, []);
+  useEffect(() => {
+    let newData = JSON.parse(localStorage.getItem("watched"));
+    if (newData.includes(data.id) === false) {
+      newData.push(data.id);
+    }
+    localStorage.setItem("watched", JSON.stringify(newData));
+  }, []);
   return (
     <div>
       <div className={`container start ${fade}`}>
