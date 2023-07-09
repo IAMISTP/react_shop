@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Nav } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { styled } from "styled-components";
 
@@ -26,6 +27,7 @@ export function Detail(props) {
   let [alert, setAlert] = useState(true);
   let [inputValue, setInputValue] = useState("");
   let [typeCheck, setTypeCheck] = useState(true);
+  let [tab, setTab] = useState(0);
   useEffect(() => {
     let timer = setTimeout(() => {
       setAlert(false);
@@ -65,7 +67,53 @@ export function Detail(props) {
             <button className="btn btn-danger">주문하기</button>
           </div>
         </div>
+        <Nav fill variant="tabs" defaultActiveKey="link-0">
+          <Nav.Item>
+            <Nav.Link
+              onClick={() => {
+                setTab(0);
+              }}
+              eventKey="link-0"
+            >
+              Active
+            </Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link
+              onClick={() => {
+                setTab(1);
+              }}
+              eventKey="link-1"
+            >
+              Loooonger NavLink
+            </Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link
+              onClick={() => {
+                setTab(2);
+              }}
+              eventKey="link-2"
+            >
+              Link
+            </Nav.Link>
+          </Nav.Item>
+        </Nav>
+        <TabComponent tab={tab} />
       </div>
     </>
   );
+}
+
+function TabComponent({ tab }) {
+  return [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab];
+  // if (tab === 0) {
+  //   return <div>내용0</div>;
+  // }
+  // if (tab === 1) {
+  //   return <div>내용1</div>;
+  // }
+  // if (tab === 2) {
+  //   return <div>내용2</div>;
+  // }
 }
