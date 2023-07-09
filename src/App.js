@@ -14,6 +14,7 @@ import { Detail } from "./routes/Detail";
 import { Product } from "./routes/Product";
 import axios from "axios";
 import { styled } from "styled-components";
+import Cart from "./routes/Cart";
 
 let Box = styled.div`
   background-color: ${(props) => props.color};
@@ -147,6 +148,7 @@ function App() {
           <Route path="one" element={<div>첫 주문시 양배추즙 서비스</div>} />
           <Route path="two" element={<div>생일기념 쿠폰받기</div>} />
         </Route>
+        <Route path="/cart" element={<Cart />}></Route>
       </Routes>
     </div>
   );
