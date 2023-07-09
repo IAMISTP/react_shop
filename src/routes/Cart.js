@@ -1,6 +1,7 @@
 import { Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { increase, subtract } from "../store/basketsSlice";
+import { delItem, increase, subtract } from "../store/basketsSlice";
+import { useEffect } from "react";
 
 function Cart() {
   let baskets = useSelector((state) => {
@@ -9,6 +10,7 @@ function Cart() {
   let state = useSelector((state) => state);
 
   let dispatch = useDispatch();
+  useEffect(() => {}, [baskets]);
   return (
     <div>
       {state.user.name} 의 장바구니
@@ -19,6 +21,7 @@ function Cart() {
             <th>상품명</th>
             <th>수량</th>
             <th>변경하기</th>
+            <th>삭제하기</th>
           </tr>
         </thead>
         <tbody>
@@ -43,6 +46,11 @@ function Cart() {
                     }}
                   >
                     -
+                  </button>
+                </td>
+                <td>
+                  <button onClick={() => dispatch(delItem(data.id))}>
+                    삭제
                   </button>
                 </td>
               </tr>
