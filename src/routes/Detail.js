@@ -118,7 +118,6 @@ export function Detail(props) {
 
 function TabComponent({ tab }) {
   let { 재고 } = useContext(Context1);
-  console.log(재고);
   let [fade, setFade] = useState("");
   useEffect(() => {
     let timer = setTimeout(() => {
