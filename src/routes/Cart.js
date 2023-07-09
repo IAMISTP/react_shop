@@ -1,11 +1,13 @@
 import { Table } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { changeName } from "../store";
 
 function Cart() {
   let baskets = useSelector((state) => {
     return state.baskets;
   });
-  console.log(baskets);
+  let user = useSelector((state) => state);
+  let dispatch = useDispatch();
   return (
     <div>
       <Table>
@@ -24,7 +26,16 @@ function Cart() {
                 <td>{++i}</td>
                 <td>{data.name}</td>
                 <td>{data.count}</td>
-                <td>안녕</td>
+                <td>
+                  <button
+                    onClick={() => {
+                      dispatch(changeName());
+                    }}
+                  >
+                    +
+                  </button>
+                  <button>-</button>
+                </td>
               </tr>
             );
           })}
