@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Nav } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { styled } from "styled-components";
+import { Context1 } from "../App";
 
 let YellowBtn = styled.button`
   background-color: ${(props) => props.bg};
@@ -116,6 +117,8 @@ export function Detail(props) {
 }
 
 function TabComponent({ tab }) {
+  let { 재고 } = useContext(Context1);
+  console.log(재고);
   let [fade, setFade] = useState("");
   useEffect(() => {
     let timer = setTimeout(() => {

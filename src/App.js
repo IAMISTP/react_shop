@@ -7,7 +7,7 @@ import bg from "./img/bg.png";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { data } from "./data";
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import "./App.css";
 import { Link, Outlet, Route, Routes, useNavigate } from "react-router-dom";
 import { Detail } from "./routes/Detail";
@@ -22,12 +22,15 @@ let Box = styled.div`
   padding: 10px;
 `;
 
+export let Context1 = createContext();
+
 function App() {
   let [shoes, setShoes] = useState(data);
   let navigator = useNavigate();
   let [dataNum, setDataNum] = useState(2);
   let [showBtn, setShowBtn] = useState(true);
   let [showLoading, setShowLoading] = useState(false);
+  let [재고] = useState([10, 11, 12]);
   useEffect(() => {}, [dataNum]);
   return (
     <div className="App">
@@ -119,7 +122,14 @@ function App() {
           }
         />
 
-        <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
+        <Route
+          path="/detail/:id"
+          element={
+            <Context1.Provider value={{ 재고, shoes }}>
+              <Detail shoes={shoes} />
+            </Context1.Provider>
+          }
+        />
         <Route path="*" element={<div>없는 페이지 입니다.</div>}></Route>
         <Route path="/about" element={<About />}>
           <Route path="member" element={<div>멤버조회 페이지 입니다.</div>} />
