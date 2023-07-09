@@ -35,7 +35,6 @@ function App() {
     return axios
       .get("https://codingapple1.github.io/userdata.json")
       .then((x) => {
-        console.log("요청");
         return x.data;
       });
   });

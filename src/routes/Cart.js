@@ -1,18 +1,32 @@
 import { Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { delItem, increase, subtract } from "../store/basketsSlice";
-import { useEffect } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
+
+let Child = memo(() => {
+  console.log("재렌더링");
+  return <div>자식임</div>;
+});
 
 function Cart() {
   let baskets = useSelector((state) => {
     return state.baskets;
   });
   let state = useSelector((state) => state);
-
+  let [count, setCount] = useState(0);
   let dispatch = useDispatch();
   useEffect(() => {}, [baskets]);
+
   return (
     <div>
+      <Child count={count}></Child>
+      <button
+        onClick={() => {
+          setCount(count + 1);
+        }}
+      >
+        +
+      </button>
       {state.user.name} 의 장바구니
       <Table>
         <thead>
@@ -26,7 +40,6 @@ function Cart() {
         </thead>
         <tbody>
           {baskets.map((data, i) => {
-            console.log(data);
             return (
               <tr key={i}>
                 <td>{++i}</td>
