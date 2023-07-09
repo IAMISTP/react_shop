@@ -5,7 +5,13 @@
   height: 40vmin;
   pointer-events: none;
 }
-
+.start {
+  opacity: 0;
+}
+.end {
+  opacity: 1;
+  transition: opacity 0.5s;
+}
 .main-bg {
   height: 400px;
   /* background-image: url("./img/bg.jpeg"); */

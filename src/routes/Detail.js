@@ -28,6 +28,7 @@ export function Detail(props) {
   let [inputValue, setInputValue] = useState("");
   let [typeCheck, setTypeCheck] = useState(true);
   let [tab, setTab] = useState(0);
+  let [fade, setFade] = useState("");
   useEffect(() => {
     let timer = setTimeout(() => {
       setAlert(false);
@@ -39,9 +40,18 @@ export function Detail(props) {
   useEffect(() => {
     setTypeCheck(isNaN(inputValue));
   }, [inputValue]);
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      setFade("end");
+    }, 100);
+    return () => {
+      clearTimeout(timer);
+      setFade("");
+    };
+  }, []);
   return (
-    <>
-      <div className="container">
+    <div>
+      <div className={`container start ${fade}`}>
         {alert === true ? (
           <div className="alert alert-warning ">2초 이내 구매시 할인</div>
         ) : null}
@@ -101,12 +111,27 @@ export function Detail(props) {
         </Nav>
         <TabComponent tab={tab} />
       </div>
-    </>
+    </div>
   );
 }
 
 function TabComponent({ tab }) {
-  return [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab];
+  let [fade, setFade] = useState("");
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      setFade("end");
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+      setFade("");
+    };
+  }, [tab]);
+  return (
+    <div className={`start ${fade}`}>
+      {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab]}
+    </div>
+  );
   // if (tab === 0) {
   //   return <div>내용0</div>;
   // }
