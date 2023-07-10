@@ -46,8 +46,8 @@ function App() {
   let [재고] = useState([10, 11, 12]);
 
   useEffect(() => {
-    let watchedCnt = JSON.parse(localStorage.getItem("watched")).length;
-    if (watchedCnt === 0) {
+    console.log(JSON.parse(localStorage.getItem("watched")));
+    if (JSON.parse(localStorage.getItem("watched")) === null) {
       localStorage.setItem("watched", JSON.stringify([]));
     }
   }, []);
